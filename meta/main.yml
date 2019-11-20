@@ -1,0 +1,34 @@
+---
+galaxy_info:
+  author: frite
+  role_name: recon_findomain
+  description: Ansible role to download and configure findomain
+  company: NaN
+
+  license: BSD
+
+  min_ansible_version: 2.1
+
+  github_branch: master
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - disco dingo
+        - eoan
+    - name: Debian
+      versions:
+        - buster
+    - name: EL
+      versions:
+        - 7
+        - 8
+
+  galaxy_tags:
+    - findomain
+    - recon
+    - security
+
+dependencies: []

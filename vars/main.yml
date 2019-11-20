@@ -1,0 +1,5 @@
+---
+sourced_file:
+  Ubuntu: .profile
+  Debian: .profile
+  CentOS: .bash_profile

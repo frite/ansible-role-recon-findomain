@@ -1,0 +1,63 @@
+---
+- name: Include general variables
+  include_vars: "main.yml"
+
+- name: Download findomain
+  get_url:
+    url: 'https://github.com/Edu4rdSHL/findomain/releases/latest/download/findomain-linux'
+    dest: /usr/local/bin/findomain
+    mode: 0755
+
+- name: Create findomain file
+  copy:
+    content: ""
+    dest: "{{ recon_findomain_home_dir }}/.findomain_tokens"
+    force: false
+    group: "{{ recon_findomain_username }}"
+    owner: "{{ recon_findomain_username }}"
+    mode: 0600
+  when: recon_findomain_username is defined
+
+- name: Include FB API Key to source file
+  lineinfile:
+    path: "{{ recon_findomain_home_dir }}/.findomain_tokens"
+    regexp: '^export findomain_fb_token'
+    line: "export findomain_fb_token=\"{{ recon_findomain_fb_token }}\""
+    state: present
+    owner: '{{ recon_findomain_username  }}'
+    group: '{{ recon_findomain_username  }}'
+    mode: 0600
+  when: recon_findomain_username is defined and recon_findomain_fb_token is defined
+
+- name: Include Spyse API Key to source file
+  lineinfile:
+    path: "{{ recon_findomain_home_dir }}/.findomain_tokens"
+    regexp: '^export findomain_spyse_token'
+    line: "export findomain_spyse_token=\"{{ recon_findomain_spyse_token }}\""
+    state: present
+    owner: '{{ recon_findomain_username  }}'
+    group: '{{ recon_findomain_username  }}'
+    mode: 0600
+  when: recon_findomain_username is defined and recon_findomain_spyse_token is defined
+
+- name: Include Virustotal API Key to source file
+  lineinfile:
+    path: "{{ recon_findomain_home_dir }}/.findomain_tokens"
+    regexp: '^export findomain_virustotal_token='
+    line: "export findomain_virustotal_token=\"{{ recon_findomain_virustotal_token }}\""
+    state: present
+    owner: '{{ recon_findomain_username  }}'
+    group: '{{ recon_findomain_username  }}'
+    mode: 0600
+  when: recon_findomain_username is defined and recon_findomain_virustotal_token is defined
+
+- name: Ensure findomain is sourced
+  lineinfile:
+    path: "{{ recon_findomain_home_dir }}/{{ sourced_file[ansible_distribution] }}"
+    regexp: '^source'
+    line: "source ~/.findomain_tokens"
+    state: present
+    owner: '{{ recon_findomain_username }}'
+    group: '{{ recon_findomain_username }}'
+    mode: '0700'
+  when: recon_findomain_username is defined

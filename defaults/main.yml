@@ -1,0 +1,3 @@
+---
+recon_findomain_username: recon
+recon_findomain_home_dir: "/home/{{ recon_findomain_username}}"

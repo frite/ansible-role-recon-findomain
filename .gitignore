@@ -1,0 +1,9 @@
+.vagrant/
+*.log
+.idea/*
+.swp
+Vagrantfile
+__pycache__/*
+*.pyc
+venv/*
+.vscode/
